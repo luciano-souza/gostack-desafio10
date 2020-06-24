@@ -15,6 +15,7 @@ interface IFoodPlate {
 
 interface IProps {
   food: IFoodPlate;
+  handleFoodAvailable: (id: number) => void;
   handleDelete: (id: number) => {};
   handleEditFood: (food: IFoodPlate) => void;
 }
@@ -22,16 +23,18 @@ interface IProps {
 const Food: React.FC<IProps> = ({
   food,
   handleDelete,
+  handleFoodAvailable,
   handleEditFood,
 }: IProps) => {
   const [isAvailable, setIsAvailable] = useState(food.available);
 
   async function toggleAvailable(): Promise<void> {
-    // TODO UPDATE STATUS (available)
+    setIsAvailable(!isAvailable);
+    handleFoodAvailable(food.id);
   }
 
   function setEditingFood(): void {
-    // TODO - SET THE ID OF THE CURRENT ITEM TO THE EDITING FOOD AND OPEN MODAL
+    handleEditFood(food);
   }
 
   return (
